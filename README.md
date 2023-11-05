@@ -1,6 +1,6 @@
-# Carmen
+# DHINet
 Dual-path Hierarchical Interaction Network for Coordinated Drug Recommendation
-This is an implementation of our model Carmen and the baselines in the paper. 
+This is an implementation of our model DHINet and the baselines in the paper. 
 <hr>
 
 ## Requirements
@@ -54,7 +54,7 @@ Let us know any of the package dependency issue. Please pay special attention to
 ## Process Data
 The processed data is in the path
 ```python
-\Carmen\data
+\DHINet\data
 ```
 You can also process data with
 - MIMIC-III
