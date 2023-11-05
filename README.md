@@ -10,7 +10,7 @@ torch-geometric == 1.0.3
 torch-scatter == 2.0.9
 torch-sparse == 0.6.12
 ```
-### Package Dependency
+## Package Dependency
 
 - first, install the rdkit conda environment
 ```python
@@ -57,15 +57,15 @@ The processed data is in the path
 \Carmen\data
 ```
 You can also process data with
-### MIMIC-III
+- MIMIC-III
 ```python
 python processing.py
 ```
-### MIMIC-IV
+- MIMIC-IV
 ```python
 python processing_4.py
 ```
-### run the code
+## Run the code
 
 ```python
 python DHINet.py
