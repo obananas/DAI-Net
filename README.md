@@ -1,5 +1,6 @@
 # DHINet
-Dual-path Hierarchical Interaction Network for Coordinated Drug Recommendation \\
+Dual-path Hierarchical Interaction Network for Coordinated Drug Recommendation  
+
 This is an implementation of our model DHINet and the baselines in the paper. 
 <hr>
 
