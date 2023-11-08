@@ -10,9 +10,11 @@ torch-geometric == 1.0.3
 torch-scatter == 2.0.9
 torch-sparse == 0.6.12
 ```
+
 ## Package Dependency
 
-- first, install the rdkit conda environment
+- first, install the [`rdkit`](https://www.rdkit.org/) (RDKit: Open-Source Cheminformatics Software) conda environment.
+
 ```python
 conda create -c conda-forge -n DHINet  rdkit
 conda activate DHINet
@@ -50,6 +52,93 @@ scikit-learn: 0.24.2
 numpy: 1.21.1
 ```
 Let us know any of the package dependency issue. Please pay special attention to pandas, some report that a high version of pandas would raise error for dill loading.
+
+## Processing
+
+- Go to https://physionet.org/content/mimiciii/1.4/ to download the MIMIC-III dataset (You may need to get the certificate)
+
+```bash
+  wget -r -N -c -np --user [account] --ask-password https://physionet.org/files/mimiciii/1.4/
+  ```
+
+- Go into the folder and unzip required three files and copy them to the `~/cs598dl4h-project/data/input/` folder
+
+```bash
+  cd ~/physionet.org/files/mimiciii/1.4
+  gzip -d PROCEDURES_ICD.csv.gz # procedure information
+  gzip -d PRESCRIPTIONS.csv.gz  # prescription information
+  gzip -d DIAGNOSES_ICD.csv.gz  # diagnosis information
+  cp PROCEDURES_ICD.csv PRESCRIPTIONS.csv DIAGNOSES_ICD.csv ~/cs598dl4h-project/data/input/
+  ```
+
+- Download additional files in the `~/cs598dl4h-project/data/input/` folder
+
+```bash
+  cd ~/cs598dl4h-project/data/input/
+  ./get_additional_files.sh
+  ```
+
+- Processing the data to get a complete `records_final.pkl`
+
+  ```bash
+  cd ~/cs598dl4h-project/data
+  python processing.py
+  ```
+  
+## Project Structure
+- `data/`
+  - `processing.py`: The data preprocessing file.
+- `input/`
+    - `PRESCRIPTIONS.csv`: the prescription file from MIMIC-III raw dataset
+- `DIAGNOSES_ICD.csv`: the diagnosis file from MIMIC-III raw dataset
+- `PROCEDURES_ICD.csv`: the procedure file from MIMIC-III raw dataset
+- `RXCUI2atc4.csv`: this is a NDC-RXCUI-ATC4 mapping file, and we only need the RXCUI to ATC4 mapping. This file is obtained from https://github.com/ycq091044/SafeDrug.
+- `drug-atc.csv`: this is a CID-ATC file, which gives the mapping from CID code to detailed ATC code (we will use the prefix of the ATC code latter for aggregation). This file is obtained from https://github.com/ycq091044/SafeDrug.
+- `rxnorm2RXCUI.txt`: rxnorm to RXCUI mapping file. This file is obtained from https://github.com/ycq091044/SafeDrug.
+- `drugbank_drugs_info.csv`: drug information table downloaded from drugbank here https://www.dropbox.com/s/angoirabxurjljh/drugbank_drugs_info.csv?dl=0, which is used to map drug name to drug SMILES string.
+- `drug-DDI.csv`: this a large file, containing the drug DDI information, coded by CID. The file could be downloaded from https://drive.google.com/file/d/1mnPc0O0ztz0fkv3HF-dpmBb8PLWsEoDz/view?usp=sharing
+  - `output/`
+    - `atc3toSMILES.pkl`: drug ID (we use ATC-3 level code to represent drug ID) to drug SMILES string dict
+- `ddi_A_final.pkl`: ddi adjacency matrix
+- `ehr_adj_final.pkl`: used in GAMENet baseline (if two drugs appear in one set, then they are connected)
+- `records_final.pkl`: The final diagnosis-procedure-medication EHR records of each patient, used for train/val/test split.
+- `voc_final.pkl`: diag/prod/med index to code dictionary
+- `src/`
+  - `SafeDrug.py`: our model
+- baseline models:
+- `GAMENet.py`
+    - `DMNC.py`
+    - `Leap.py`
+    - `Retain.py`
+    - `ECC.py`
+    - `LR.py`
+  - setting file
+- `model.py`
+    - `util.py`
+    - `layer.py`
+  - analysis file
+- `Result-Analysis.ipynb`
+- `dependency.sh`
+- `requirements.txt`
+- `README.md`
+
+After the processing have been done, we get the following statistics:
+
+```bash
+# patients  6350
+# clinical events  15032
+# diagnosis  1958
+# med  112
+# procedure 1430
+# avg of diagnoses  10.5089143161256
+# avg of medicines  11.647751463544438
+# avg of procedures  3.8436668440659925
+# avg of vists  2.367244094488189
+# max of diagnoses  128
+# max of medicines  64
+# max of procedures  50
+# max of visit  29
+```
 
 ## Process Data
 The processed data is in the path
@@ -89,3 +178,20 @@ here is the argument:
                             target ddi
       --kp KP               coefficient of P signal
       --dim DIM             dimension
+
+## Results
+
+| **Model** |     **DDI**     |   **Jaccard**   |   **F1-score**  |    **PRAUC**    | **Avg. # of Drugs** |
+|-----------|:---------------:|:---------------:|:---------------:|:---------------:|:-------------------:|
+| LR        |      0.0775     |      0.4900     |      0.6470     |      0.7553     |          -          |
+| ECC       |      0.0806     |      0.4868     |      0.6428     |      0.7602     |          -          |
+| RETAIN    | 0.0851 ± 0.0028 | 0.4711 ± 0.0140 | 0.6337 ± 0.0129 | 0.7512 ± 0.0126 |   17.9925 ± 0.8751  |
+| LEAP      | 0.0689 ± 0.0028 | 0.4369 ± 0.0117 | 0.6002 ± 0.0116 | 0.6467 ± 0.0068 |   19.1096 ± 0.1240  |
+| GAMENet   | 0.0836 ± 0.0067 | 0.4790 ± 0.0260 | 0.6382 ± 0.0240 | 0.7393 ± 0.0247 |   25.1478 ± 1.1325  |
+| SafeDrug  | 0.0627 ± 0.0023 | 0.5051 ± 0.0150 | 0.6624 ± 0.0134 | 0.7604 ± 0.0117 |   19.3245 ± 0.5557  |
+| SafeDrug* | 0.0589 ± 0.0005 | 0.5213 ± 0.0030 | 0.6768 ± 0.0027 | 0.7647 ± 0.0025 |   19.9178 ± 0.1604  |
+
+
+## Credits
+
+Our work followed the original codes at https://github.com/ycq091044/SafeDrug.
