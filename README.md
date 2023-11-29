@@ -1,6 +1,6 @@
-# DHINet
+# DAI-Net
 Dual-path Hierarchical Interaction Network for Coordinated Drug Recommendation  
-This is an implementation of our model DHINet and the baselines in the paper. 
+This is an implementation of our model DAI-Net and the baselines in the paper. 
 <hr>
 
 ## Requirements
@@ -16,14 +16,14 @@ torch-sparse == 0.6.12
 - first, install the [`rdkit`](https://www.rdkit.org/) (RDKit: Open-Source Cheminformatics Software) conda environment.
 
 ```python
-conda create -c conda-forge -n DHINet  rdkit
-conda activate DHINet
+conda create -c conda-forge -n DAI-Net  rdkit
+conda activate DAI-Net
 
 # can also use the following in your current env
 pip install rdkit-pypi
 ```
 
-- then, in DHINet environment, install the following package
+- then, in DAI-Net environment, install the following package
 ```python
 pip install scikit-learn, dill, dnc
 ```
@@ -143,7 +143,7 @@ After the processing have been done, we get the following statistics:
 ## Process Data
 The processed data is in the path
 ```python
-\DHINet\data
+\DAI-Net\data
 ```
 You can also process data with
 - MIMIC-III
@@ -157,12 +157,12 @@ python processing_4.py
 ## Run the code
 
 ```python
-python DHINet.py
+python DAI-Net.py
 ```
 
 here is the argument:
 
-    usage: DHINet.py [-h] [--Test] [--model_name MODEL_NAME]
+    usage: DAI-Net.py [-h] [--Test] [--model_name MODEL_NAME]
                    [--resume_path RESUME_PATH] [--lr LR]
                    [--target_ddi TARGET_DDI] [--kp KP] [--dim DIM]
     
