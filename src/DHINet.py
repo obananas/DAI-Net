@@ -4,11 +4,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn.utils.weight_norm import weight_norm
 
-class DHINet(nn.Module):
+class DAINet(nn.Module):
     def __init__(self, vocab_size, ddi_adj, MPNNSet, N_fingerprints, average_projection, emb_dim=256, v_dim=64,
                  q_dim=64, h_dim=64, h_out=2,
                  device=torch.device('cpu:0'), act='ReLU', dropout=0.3, k=1):
-        super(DHINet, self).__init__()
+        super(DAINet, self).__init__()
 
         self.device = device
         self.k = k
