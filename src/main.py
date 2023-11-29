@@ -10,13 +10,13 @@ import torch.nn.functional as F
 from pytorch_memlab import MemReporter
 from torch.optim import Adam
 
-from DHINet import DHINet
+from DAINet import DAINet
 from util import llprint, multi_label_metric, ddi_rate_score, buildMPNN
 
 torch.manual_seed(1203)
 
 # setting
-model_name = 'DHINet'
+model_name = 'DAINet'
 resume_path = 'saved/Pretrain.model'
 
 if not os.path.exists(os.path.join("saved", model_name)):
@@ -128,7 +128,7 @@ def main():
     MPNNSet, N_fingerprint, average_projection = buildMPNN(molecule, med_voc.idx2word, 2, device)
     voc_size = (len(diag_voc.idx2word), len(pro_voc.idx2word), len(med_voc.idx2word))
 
-    model = DHINet(voc_size, ddi_adj, MPNNSet, N_fingerprint, average_projection, emb_dim=args.dim, v_dim=64, q_dim=64,
+    model = DAINet(voc_size, ddi_adj, MPNNSet, N_fingerprint, average_projection, emb_dim=args.dim, v_dim=64, q_dim=64,
                    h_dim=64, h_out=4, device=device)
     if args.use_pretrain:
         model.load_state_dict(torch.load(open(args.resume_path, 'rb')))
