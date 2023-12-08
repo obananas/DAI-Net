@@ -1,5 +1,5 @@
 # DAI-Net
-Dual-path Hierarchical Interaction Network for Coordinated Drug Recommendation  
+Dual Adaptive Interaction Network for Coordinated Drug Recommendation  
 This is an implementation of our model DAI-Net and the baselines in the paper. 
 <hr>
 
