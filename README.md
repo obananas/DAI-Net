@@ -1,9 +1,18 @@
-# DAI-Net
-Dual Adaptive Interaction Network for Coordinated Drug Recommendation  
-This is an implementation of our model DAI-Net and the baselines in the paper. 
-<hr>
+# DAI-Net: Dual Adaptive Interaction Network for Coordinated Drug Recommendation
+<!-- **DAI-Net: Dual Adaptive Interaction Network for Coordinated Drug Recommendation** -->
+This is the official repo for Dual Adaptive Interaction Network (DAI-Net), a simple method for coordinated drug recommendation. 
 
-## Requirements
+<div style='display:flex; gap: 0.25rem; '>
+<a href='LICENCE'><img src='https://img.shields.io/badge/License-Apache 2.0-g.svg'></a>
+<a href='https://doi.org/10.1109/JBHI.2024.3425833'><img src='https://img.shields.io/badge/Paper-PDF-red'></a>
+</div>
+
+## 🔥 Update
+* [2024-7-30]: ⭐️ Paper of DAI-Net online (accepted by IEEE JBHI). Check out [this link](https://doi.org/10.1109/JBHI.2024.3425833) for details.
+* [2023-11-29]: 🚀🚀 Codes released.
+
+## 🕹️ Usage
+### Requirements
 ```python
 torch == 1.8.0+cu111
 torch-geometric == 1.0.3
@@ -11,7 +20,7 @@ torch-scatter == 2.0.9
 torch-sparse == 0.6.12
 ```
 
-## Package Dependency
+### Package Dependency
 
 - first, install the [`rdkit`](https://www.rdkit.org/) (RDKit: Open-Source Cheminformatics Software) conda environment.
 
@@ -53,7 +62,7 @@ numpy: 1.21.1
 ```
 Let us know any of the package dependency issue. Please pay special attention to pandas, some report that a high version of pandas would raise error for dill loading.
 
-## Processing
+### Processing
 
 - Go to https://physionet.org/content/mimiciii/1.4/ to download the MIMIC-III dataset (You may need to get the certificate)
 
@@ -85,7 +94,7 @@ Let us know any of the package dependency issue. Please pay special attention to
   python processing.py
   ```
   
-## Project Structure
+### 📌 Project Structure
 - `data/`
   - `processing.py`: The data preprocessing file.
 - `input/`
@@ -140,7 +149,7 @@ After the processing have been done, we get the following statistics:
 # max of visit  29
 ```
 
-## Process Data
+### Process Data
 The processed data is in the path
 ```python
 \DAI-Net\data
@@ -154,7 +163,7 @@ python processing.py
 ```python
 python processing_4.py
 ```
-## Run the code
+### Run the code
 
 ```python
 python DAI-Net.py
@@ -179,6 +188,17 @@ here is the argument:
       --kp KP               coefficient of P signal
       --dim DIM             dimension
 
+## 📑 Citation
+If you find our project useful, we hope you can star our repo and cite our paper as follows:
+```
+@article{zou2024dai,
+  title={DAI-Net: Dual Adaptive Interaction Network for Coordinated Medication Recommendation},
+  author={Zou, Xin and He, Xiao and Zheng, Xiao and Zhang, Wei and Chen, Jiajia and Tang, Chang},
+  journal={IEEE Journal of Biomedical and Health Informatics},
+  year={2024},
+  publisher={IEEE}
+}
+```
 
 ## Credits
 
