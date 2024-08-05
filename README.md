@@ -1,4 +1,4 @@
-# DAI-Net: Dual Adaptive Interaction Network for Coordinated Drug Recommendation
+# DAI-Net: Dual Adaptive Interaction Network for Coordinated Medication Recommendation
 <!-- **DAI-Net: Dual Adaptive Interaction Network for Coordinated Drug Recommendation** -->
 This is the official repo for Dual Adaptive Interaction Network (DAI-Net), a simple method for coordinated drug recommendation. 
 
