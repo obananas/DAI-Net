@@ -5,6 +5,7 @@ This is the official repo for Dual Adaptive Interaction Network (DAI-Net), a sim
 <div style='display:flex; gap: 0.25rem; '>
 <a href='LICENCE'><img src='https://img.shields.io/badge/License-Apache 2.0-g.svg'></a>
 <a href='https://doi.org/10.1109/JBHI.2024.3425833'><img src='https://img.shields.io/badge/Paper-PDF-red'></a>
+<a href='https://zhuanlan.zhihu.com/p/714258819'><img src='https://img.shields.io/badge/zhihu-Markdown-blue'></a>
 </div>
 
 ## 🔥 Update
